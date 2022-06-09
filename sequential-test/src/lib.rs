@@ -24,8 +24,6 @@
 //! at the same time as tests with the [`macro@sequential`] attribute.
 //! - Tests with neither attributes may run in parallel with any tests.
 //!
-//! This library does not support `async` tests.
-//!
 //! Defining [`macro@sequential`] or [`macro@parallel`] attributes on non-tests or within scopes is
 //! considered UB.
 //!

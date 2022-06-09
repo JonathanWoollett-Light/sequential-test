@@ -29,8 +29,6 @@ mod tests {
 at the same time as tests with the `sequential` attribute.
 - Tests with neither attributes may run in parallel with any tests.
 
-This library does not support `async` tests.
-
 Defining `sequential` or `parallel` attributes on non-tests or within scopes is
 considered UB.
 
