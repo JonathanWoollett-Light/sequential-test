@@ -1,0 +1,20 @@
+[package]
+name = "sequential-macro"
+version = "0.1.0"
+edition = "2021"
+description = "Allows for the creation of sequential Rust tests."
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[lib]
+proc-macro = true
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "benchmark"
+harness = false

@@ -6,9 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-
-[dev-dependencies]
 sequential-test = { path = "../sequential-test" }
-lazy_static = "1.4.0"
 serial_test = "0.7.0"
 rand = "0.8.5"
+

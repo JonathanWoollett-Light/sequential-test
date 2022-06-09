@@ -1,6 +1,6 @@
 [package]
 name = "sequential-test"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Jonathan Woollett-Light <jonathanwoollettlight@gmail.com>"]
 edition = "2021"
 description = "Allows for the creation of sequential Rust tests."
@@ -13,13 +13,4 @@ categories = ["development-tools::testing"]
 
 [dependencies]
 lazy_static = "1.4.0"
-
-[lib]
-proc-macro = true
-
-[dev-dependencies]
-criterion = "0.3"
-
-[[bench]]
-name = "benchmark"
-harness = false
+sequential-macro = { path = "../sequential-macro", version = "0.1.0" }

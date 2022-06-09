@@ -1,3 +1,12 @@
+// use sequential_test::{parallel, sequential};
+
+// #[test]
+// #[should_panic]
+// #[sequential]
+// fn test1s() {
+//     println!("Hello World");
+// }
+
 #[cfg(test)]
 mod tests {
     use rand::{thread_rng, Rng};

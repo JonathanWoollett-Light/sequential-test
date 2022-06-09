@@ -1,2 +1,2 @@
 [workspace]
-members = ["example","sequential-test",]
+members = ["example","sequential-test","sequential-macro"]
