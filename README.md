@@ -1,7 +1,9 @@
 # sequential-test
 
-[![crates.io](https://img.shields.io/crates/v/sequential-test)](https://crates.io/crates/sequential-test)
-[![docs.rs](https://img.shields.io/docsrs/sequential-test)](https://docs.rs/sequential-test/)
+[![Version](https://img.shields.io/crates/v/sequential-test.svg)](https://crates.io/crates/sequential-test)
+[![Downloads](https://img.shields.io/crates/d/sequential-test)](https://crates.io/crates/sequential-test)
+[![Docs](https://docs.rs/sequential-test/badge.svg)](https://docs.rs/sequential-test/)
+[![APACHE 2.0 license](https://img.shields.io/crates/l/sequential-test.svg)](./LICENSE)
 
 Allows for the creation of sequential tests.
 ```rust
