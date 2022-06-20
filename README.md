@@ -5,6 +5,8 @@
 [![Docs](https://docs.rs/sequential-test/badge.svg)](https://docs.rs/sequential-test/)
 [![APACHE 2.0 license](https://img.shields.io/crates/l/sequential-test.svg)](./LICENSE)
 
+*If you want a more fully featured mature implementation checkout [palfrey/serial_test](https://github.com/palfrey/serial_test)*
+
 Allows for the creation of sequential tests.
 ```rust
 #[cfg(test)]
@@ -34,8 +36,8 @@ at the same time as tests with the `sequential` attribute.
 Defining `sequential` or `parallel` attributes on non-tests or within scopes is
 considered UB.
 
-This library is both faster[^speed] and smaller than
-[`serial_test`](https://github.com/palfrey/serial_test) however offers less functionality.
+This library is faster[^speed] and smaller but less tested and younger than
+[`serial_test`](https://github.com/palfrey/serial_test).
 
 [^speed]: The current benchmark illustrate `sequential-test` covers the test set in an average 
 of ~350ms while [`serial_test`](https://github.com/palfrey/serial_test) covers the test set in 
