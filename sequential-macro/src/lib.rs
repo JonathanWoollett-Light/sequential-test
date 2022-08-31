@@ -20,6 +20,7 @@ const DEFINE: &str = "
     );
 ";
 const SEQ_PREFIX: &str = "
+    #[allow(unused_must_use)]
     let _ = __PAIR.1.wait_while(__PAIR.0.lock().unwrap(), |pending| 
         match pending {
             __TestState::Parallel(0) => {
@@ -31,6 +32,7 @@ const SEQ_PREFIX: &str = "
     ).unwrap();
 ";
 const PAR_PREFIX: &str = "
+    #[allow(unused_must_use)]
     let _ = __PAIR.1.wait_while(__PAIR.0.lock().unwrap(), |pending|
         match pending {
             __TestState::Sequential => true,
