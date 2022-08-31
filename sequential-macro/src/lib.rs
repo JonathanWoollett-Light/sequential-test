@@ -5,7 +5,7 @@ use proc_macro::TokenStream;
 
 use std::sync::atomic::{AtomicBool, Ordering};
 
-/// Used for tje attribute macros such that we only define [`__TestState`] and [`__PAIR`] once.
+/// Used for the attribute macros such that we only define [`__TestState`] and [`__PAIR`] once.
 static SET: AtomicBool = AtomicBool::new(false);
 
 const DEFINE: &str = "
@@ -15,12 +15,9 @@ const DEFINE: &str = "
         Parallel(u64)
     }
     /// The mutex and condvar pair used for ordering tests.
-    sequential_test::lazy_static! {
-        static ref __PAIR: std::sync::Arc<(std::sync::Mutex<__TestState>, std::sync::Condvar)> = 
-            std::sync::Arc::new(
-                (std::sync::Mutex::new(__TestState::Parallel(0)), std::sync::Condvar::new())
-            );
-    }
+    static __PAIR: (std::sync::Mutex<__TestState>, std::sync::Condvar) = (
+        std::sync::Mutex::new(__TestState::Parallel(0)), std::sync::Condvar::new()
+    );
 ";
 const SEQ_PREFIX: &str = "
     let _ = __PAIR.1.wait_while(__PAIR.0.lock().unwrap(), |pending| 
@@ -71,6 +68,7 @@ pub fn parallel(_attr: TokenStream, item: TokenStream) -> TokenStream {
     inner(item, PAR_PREFIX, PAR_SUFFIX)
 }
 fn inner(item: TokenStream, prefix: &str, suffix: &str) -> TokenStream {
+    // We get whether this was the first macro invocation and set first macro invocation to false.
     let ret = SET.compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst);
     let mut iter = item.into_iter().peekable();
     let signature = std::iter::from_fn(|| {
@@ -85,16 +83,16 @@ fn inner(item: TokenStream, prefix: &str, suffix: &str) -> TokenStream {
     let block = iter.collect::<TokenStream>();
     let item = format!(
         "
-        {} {{
-            {}
-            let res = std::panic::catch_unwind(|| {} );
-            {}
-            {}
-        }}",
-        signature, prefix, block, suffix, SUFFIX
+        {signature} {{
+            {prefix}
+            let res = std::panic::catch_unwind(|| {block} );
+            {suffix}
+            {SUFFIX}
+        }}"
     );
+    // If this was the first macro invocation define the mutex and condvar used for locking.
     if ret.is_ok() {
-        format!("{}\n{}", DEFINE, item)
+        format!("{DEFINE}\n{item}")
     } else {
         item
     }

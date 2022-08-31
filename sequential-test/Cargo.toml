@@ -12,5 +12,6 @@ categories = ["development-tools::testing"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-lazy_static = "1.4.0"
 sequential-macro = { path = "../sequential-macro", version = "0.1.1" }
+[dev-dependencies]
+rand = "0.8.5"
