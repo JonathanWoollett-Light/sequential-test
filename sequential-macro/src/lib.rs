@@ -20,8 +20,7 @@ const DEFINE: &str = "
     );
 ";
 const SEQ_PREFIX: &str = "
-    #[allow(unused_must_use)]
-    let _ = __PAIR.1.wait_while(__PAIR.0.lock().unwrap(), |pending| 
+    let _ = __PAIR.1.wait_while(__PAIR.0.lock().expect(\"sequential-test error\"), |pending| 
         match pending {
             __TestState::Parallel(0) => {
                 *pending = __TestState::Sequential;
@@ -29,11 +28,10 @@ const SEQ_PREFIX: &str = "
             },
             _ => true
         }
-    ).unwrap();
+    ).expect(\"sequential-test error\");
 ";
 const PAR_PREFIX: &str = "
-    #[allow(unused_must_use)]
-    let _ = __PAIR.1.wait_while(__PAIR.0.lock().unwrap(), |pending|
+    let _ = __PAIR.1.wait_while(__PAIR.0.lock().expect(\"sequential-test error\"), |pending|
         match pending {
             __TestState::Sequential => true,
             __TestState::Parallel(ref mut x) => {
@@ -41,17 +39,17 @@ const PAR_PREFIX: &str = "
                 false
             }
         }
-    ).unwrap();
+    ).expect(\"sequential-test error\");
 ";
 const PAR_SUFFIX: &str = "
-    match *__PAIR.0.lock().unwrap() {
-        __TestState::Sequential => unreachable!(),
+    match *__PAIR.0.lock().expect(\"sequential-test error\") {
+        __TestState::Sequential => unreachable!(\"sequential-test error\"),
         __TestState::Parallel(ref mut x) => {
             *x -= 1;
         }
     }
 ";
-const SEQ_SUFFIX: &str = "*__PAIR.0.lock().unwrap() = __TestState::Parallel(0);";
+const SEQ_SUFFIX: &str = "*__PAIR.0.lock().expect(\"sequential-test error\") = __TestState::Parallel(0);";
 const SUFFIX: &str = "
     __PAIR.1.notify_all();
     if let Err(err) = res {
