@@ -1,6 +1,6 @@
 [package]
 name = "sequential-test"
-version = "0.1.4"
+version = "0.2.4"
 authors = ["Jonathan Woollett-Light <jonathanwoollettlight@gmail.com>"]
 edition = "2021"
 description = "Allows for the creation of sequential Rust tests."
